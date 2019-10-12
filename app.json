@@ -25,9 +25,13 @@
     ],
     "ios": {
       "supportsTablet": true,
-       "infoPlist": {
-        "UIBackgroundModes": ["audio"]
-       }
-    }
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      }
+    },
+    "description": "A simple sound machine app",
+    "githubUrl": "https://github.com/zolon4/sound-machine"
   }
 }
