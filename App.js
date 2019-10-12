@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import ToggleSwitch from 'toggle-switch-react-native'
 import soundMachine from './assets/sound-machine.png'
-
 
 const mode = {
   "allowsRecordingIOS": false, 
@@ -22,11 +21,11 @@ const soundObject = new Audio.Sound();
 export default function App() {
   const [playing, togglePlaying] = useState(false)
   const [soundLoaded, setSoundLoaded] = useState(false)
+
   async function playSound() {
     try {
       if (!soundLoaded) {
         await soundObject.loadAsync(require('./assets/brown.mp3'));
-
         setSoundLoaded(true)
       }
       await soundObject.setIsLoopingAsync(true)
@@ -52,24 +51,21 @@ export default function App() {
     }
   }
 
-  console.log(playing)
+  const circleStyle = {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
+    borderRadius: 120 / 2,
+    backgroundColor: (playing ? '#160F29' : '#F3DFC1')
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
-        <Image
-          style={{ width: 150, height: 150,}}
-          source={soundMachine}
-        />
-        <ToggleSwitch
-          isOn={playing}
-          onColor="green"
-          offColor="gray"
-          size="large"
-          onToggle={isOn => handleClick(isOn)}
-        />
+        <TouchableOpacity onPress={() => handleClick(!playing)}>
+          <View style={circleStyle} />
+        </TouchableOpacity>
       </View>
-
     </View>
   );
 }
@@ -77,7 +73,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: '#141204',
     alignItems: 'center',
     justifyContent: 'center',
   },
