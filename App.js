@@ -4,6 +4,19 @@ import { Audio } from 'expo-av';
 import ToggleSwitch from 'toggle-switch-react-native'
 import soundMachine from './assets/sound-machine.png'
 
+
+const mode = {
+  "allowsRecordingIOS": false, 
+  "interruptionModeIOS": Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS, 
+  "interruptionModeAndroid": Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX, 
+  "shouldDuckAndroid": false, 
+  "playThroughEarpieceAndroid": false,
+  "playsInSilentModeIOS": true,
+  "staysActiveInBackground": true
+}
+
+Audio.setAudioModeAsync(mode)
+
 const soundObject = new Audio.Sound();
 
 export default function App() {
@@ -13,6 +26,7 @@ export default function App() {
     try {
       if (!soundLoaded) {
         await soundObject.loadAsync(require('./assets/brown.mp3'));
+
         setSoundLoaded(true)
       }
       await soundObject.setIsLoopingAsync(true)
